@@ -1,16 +1,22 @@
 const express = require('express')
 const path = require('path')
 const cors = require('cors')
+const bodyParser = require('body-parser')
 const app = express()
 const db = require('./models')
 const methodOverride = require('method-override');
 require('dotenv').config()
 
 app.use(cors())
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 app.use(express.static(path.resolve(__dirname, './client/build')));
+app.use(bodyParser.json())
+app.use('/users', require('./controllers/users'))
 
+
+ 
 //returns products from api
 app.get('/api/products',(req,res) => {
   fetch('https://dummyjson.com/products')
@@ -20,7 +26,7 @@ app.get('/api/products',(req,res) => {
 
 })
 
-//returns array of products from compiled from api
+//returns array of products compiled from api
 app.get ('/api/cart',(req,res) => {
   db.Item.find().then( items => {
     Promise.all(items.map(i => {

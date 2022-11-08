@@ -2,11 +2,8 @@ import React from "react"
 import { useEffect, useState } from 'react'
 import Card from "../components/Card"
 import NavBar from "../components/NavBar"
-import Login from "../components/Login"
-import SignUp from "../components/SignUp"
 
 
-let login = (<Login/>)
 
 function CartView(){
     const [data, setData] = useState(null)
@@ -20,7 +17,6 @@ function CartView(){
 
     return(
       <div id='App'>
-        {login}
         <NavBar/>
         {!data ? 'Loading...': CreateCards(data)}
       </div>

@@ -1,22 +1,26 @@
 import React from "react"
 import {Cart3,Shop} from 'react-bootstrap-icons'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import Login from "./Login"
 import SignUp from "./SignUp"
+import { CurrentUser } from "../contexts/CurrentUser"
 
 function NavBar(){
+
+    const {currentUser} = useContext(CurrentUser)
+
     const [data, setData] = useState(null)
     const [hideLogin, setHideLogin] = useState(true)
     const [hideSignUp, setHideSignUp] = useState(true)
-
     
-
 
     function ToggleLogin(){
         setHideLogin(!hideLogin)
+        setHideSignUp(true)
     }
     function ToggleSignUp(){
         setHideSignUp(!hideSignUp)
+        setHideLogin(true)
     }
 
     //gets cart count
@@ -26,19 +30,30 @@ function NavBar(){
         .then((data) => setData(data))
     }, []);
 
+
+    function manageLoginActions(){
+        if(currentUser){
+            return(
+                <b>Logged In As {currentUser.email}</b>
+            )
+        }
+        else{
+            return(
+                <>
+                    <button onClick={ToggleSignUp} >Signup</button>
+                    <button onClick={ToggleLogin}>Login</button>
+                </>
+            )
+        }
+        
+    }
+
     return(
         <header id="NavBar">
             <h1>E-commerce</h1>
 
             <div id="NavButtons">
-                {/* to signup view */}
-                <button onClick={ToggleSignUp} >
-                    signup
-                </button>
-                {/*login popup */}
-                <button onClick={ToggleLogin}>
-                    login
-                </button>
+                {manageLoginActions()}
                 {/* to shop view */}
                 <a href="/">
                     <div>

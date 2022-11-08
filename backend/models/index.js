@@ -6,3 +6,4 @@ mongoose.connect(process.env.MONGO_URI,{
 })
 
 module.exports.Item = require('./item')
+module.exports.User = require('./user')

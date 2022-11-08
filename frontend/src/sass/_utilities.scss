@@ -1,0 +1,28 @@
+@import "config";
+
+@function set-text-color($background-color){
+    @debug "background: #{$background-color}";
+    @if (lightness($background-color) > 70)  {
+      @return black;
+    }
+    @else{
+      @return $text-color;
+    }
+}
+
+@mixin set-text($background-color){
+  color: set-text-color($background-color);
+  font-family: $primary-font
+}
+
+@mixin set-left-right-margin($margin){
+    margin-left: $margin;
+    margin-right: $margin;
+}
+
+@mixin hover-over {
+    &:hover{
+        color: $hover-color;
+    }
+}
+  
