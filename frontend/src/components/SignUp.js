@@ -1,7 +1,7 @@
 import {React, useState } from "react"
 import {X} from 'react-bootstrap-icons'
 
-function SignUp(){
+function SignUp(props){
 
     const [credentials, setCredentials] = useState({
         email: '',
@@ -17,13 +17,13 @@ function SignUp(){
             },
             body: JSON.stringify(credentials)
         })
+        props.close()
     }
 
     return(
         <div id="AccountPopup">
-            {/* <button id="ClosePopupButton"><X/></button> */}
+            <button id="ClosePopupButton" onClick={props.close}><X/></button>
             <p>Sign Up </p>
-            <p>Login and Signup don't work yet</p>
             <form onSubmit={handleSubmit}>
                 <label>Email</label>
                 <input required id="email" name="email" type="text" onChange={e => setCredentials({...credentials, email: e.target.value})}/>

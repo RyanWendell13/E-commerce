@@ -2,7 +2,7 @@ import {React, useContext, useState } from "react"
 import { CurrentUser } from "../contexts/CurrentUser"
 import {X} from 'react-bootstrap-icons'
 
-function Login(){
+function Login(props){
     const {setCurrentUser} = useContext(CurrentUser)
 
     const [credentials, setCredentials] = useState({
@@ -24,7 +24,7 @@ function Login(){
 
         if(response.status === 200){
             setCurrentUser(data.user)
-            console.log('Logged in')
+            props.close()
         }
         else{
             setErrorMessage(data.message)
@@ -32,9 +32,8 @@ function Login(){
     }
     return(
         <div id="AccountPopup">
-            {/* <button id="ClosePopupButton"><X/></button> */}
+            <button id="ClosePopupButton" onClick={props.close}><X/></button>
             <p>Login</p>
-            <p>Login and Signup don't work yet</p>
             <form onSubmit={handleSubmit}>
                 <label>Email</label>
                 <input required id="email" name="email" type="text" onChange={e => setCredentials({...credentials, email: e.target.value})}/>

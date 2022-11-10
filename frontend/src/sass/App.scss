@@ -14,13 +14,13 @@ body{
   height: 100px;
   >h1{
     margin-left: 20px;
-    @include set-text($secondary-color);
   }
   >*{
     vertical-align: middle;
     margin-top: 23px;
     display: inline-block;
     margin-right: 2vw;
+    @include set-text($secondary-color)
   }
 
   #NavButtons{
@@ -30,14 +30,13 @@ body{
     }
     >button{
       font-weight: bolder;
-      @include set-text($secondary-color);
       background: transparent;
       border: none;
       font-size: large;
       vertical-align: top;
       margin-top: 10px;
-  
-      @include hover-over
+      @include set-text($secondary-color);
+      @include hover-over;
     }
   
     >a>div{
@@ -81,6 +80,17 @@ a{
   >*{
     margin: 25px;
     @include set-text($primary-color);
+  }
+  >button{
+      float: right;
+      @include set-text($primary-color);
+      background: transparent;
+      border: none;
+      font-size: xx-large;
+      vertical-align: bottom;
+      margin-top: 10px;
+      @include hover-over;
+      margin-bottom: 20px;
   }
   >form{
     >:not(#Submit){
@@ -140,11 +150,9 @@ a{
       >button{
         background-color: transparent;
         border-style: none;
+        font-weight: bold;
+        font-size: x-large;
         @include set-text($tertiary-color);
-        >*{
-          font-weight: bold;
-          font-size: x-large;
-        }
         @include hover-over
       }
     }

@@ -6,7 +6,7 @@ async function defineCurrentUser(req, res, next) {
     try {
         let user = await User.findOne({
             where: {
-                userId: req.session.userId
+                _id: req.session.id
             }
         })
         req.currentUser = user
@@ -14,6 +14,7 @@ async function defineCurrentUser(req, res, next) {
     } catch {
         next()
     }
+    next()
 }
 
 module.exports = defineCurrentUser

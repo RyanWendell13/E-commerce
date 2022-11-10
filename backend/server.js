@@ -5,25 +5,35 @@ const bodyParser = require('body-parser')
 const app = express()
 const db = require('./models')
 const methodOverride = require('method-override');
+const cookieSession = require('cookie-session')
+const defineCurrentUser = require('cookie-session')
 require('dotenv').config()
 
-app.use(cors())
+app.use(cookieSession({
+  name: 'session',
+  keys: [process.env.SESSION_SECRET],
+  sameSite: 'strict',
+  maxAge: 24*60*60*1000
+}))
+
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 app.use(express.static(path.resolve(__dirname, './client/build')));
 app.use(bodyParser.json())
+// app.use(defineCurrentUser)
+
 app.use('/users', require('./controllers/users'))
 
-
- 
 //returns products from api
 app.get('/api/products',(req,res) => {
   fetch('https://dummyjson.com/products')
   .then(response => response.json())
   .then(json => res.json(json))
-
-
 })
 
 //returns array of products compiled from api

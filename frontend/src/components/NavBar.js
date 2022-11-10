@@ -70,8 +70,8 @@ function NavBar(){
 
             </div>
 
-            {!hideLogin &&<Login/>}
-            {!hideSignUp &&<SignUp/>}
+            {!hideLogin &&<Login close = {ToggleLogin}/>}
+            {!hideSignUp &&<SignUp close = {ToggleSignUp}/>}
         </header>
     )
 }
