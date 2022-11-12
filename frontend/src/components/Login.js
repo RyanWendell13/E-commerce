@@ -24,7 +24,7 @@ function Login(props){
 
         if(response.status === 200){
             setCurrentUser(data.user)
-            props.close()
+            window.location.reload()
         }
         else{
             setErrorMessage(data.message)
