@@ -24,7 +24,6 @@ function Card(props){
 //swaps out the bottem bar depending on whether it is in the cart view or shop view
 function RenderBar(props){
 
-    console.log(props.isInCart)
     if(props.isInCart == 0){
         return (
             <CartBar id = {props.id}/>

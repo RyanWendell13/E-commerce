@@ -2,7 +2,6 @@ import React from "react"
 import {Search,Plus} from 'react-bootstrap-icons'
 
 function ShopBar(props){
-    console.log(props.id)
     return(
         <div id="InputBar">
             {/* add to cart */}

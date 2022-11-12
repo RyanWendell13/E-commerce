@@ -8,7 +8,6 @@ function ItemView(){
 
     const [data, setData] = useState(null)
     const {id} = useParams()
-    console.log(id)
 
     useEffect(() => {
         fetch(`/api/products/${id}`)

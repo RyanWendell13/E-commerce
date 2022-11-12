@@ -9,7 +9,6 @@ function CurrentUserProvider({ children }){
 
     useEffect(() => {
         const getLoggedInUser = async () => {
-            console.log("calling profile")
             let response = await fetch('/users/profile', {
                 credentials: 'include'
             })

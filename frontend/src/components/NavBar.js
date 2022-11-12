@@ -27,7 +27,9 @@ function NavBar(){
     useEffect(() => {
         fetch('/api/cart/count')
         .then((res) => res.json())
-        .then((data) => setData(data))
+        .then((data) => {
+            setData(data)
+        })
     }, []);
 
 
@@ -64,7 +66,8 @@ function NavBar(){
                 <a href="/cart">
                     <div>
                         <Cart3/>
-                        <p>{!data ? '?': data}</p>
+                        <p>{data}</p>
+                        {/* <p>{!data ? '?': data}</p> */}
                     </div>
                 </a>
 
