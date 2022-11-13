@@ -215,7 +215,7 @@ app.get('/api/cart/count', (req, res)=>{
 })
 
 app.get('/*', (req, res)=>{
-  res.sendFile(path.join(__dirname, './client/build/index.html'))
+  res.sendFile(path.join(__dirname, './frontend/build/index.html'))
 })
 
 app.listen(process.env.PORT, ()=>{
