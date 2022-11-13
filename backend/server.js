@@ -7,8 +7,6 @@ const db = require('./models')
 const methodOverride = require('method-override')
 const cookieSession = require('cookie-session')
 const defineCurrentUser = require('./middleware/defineCurrentUser')
-const user = require('./models/user')
-const item = require('./models/item')
 require('dotenv').config()
 
 app.use(cookieSession({
