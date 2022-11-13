@@ -5,10 +5,12 @@
       "node": "18.6.0"
     },
     "description": "",
-    "main": "./backend/server.js",
+    "main": "",
     "scripts": {
-      "start": "node ./backend/server.js",
-      "heroku-postbuild": "npm install --only=dev && npm install && npm run build"
+      "start": "npm start --prefix server",
+      "install-frontend": "cd frontend && npm install --only=dev && npm install && npm run build && cd ..",
+      "install-backend": "cd backend && npm install && cd ..",
+      "heroku-postbuild": "npm run install-frontend && npm run install-backend"
     },
     "keywords": [],
     "author": "Ryan Wendell",

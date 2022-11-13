@@ -30,7 +30,7 @@ app.use(express.static(path.resolve(__dirname, '../frontend/build')));
 app.use(bodyParser.json())
 app.use(defineCurrentUser)
 
-app.use('/users', require('./controllers/users'))
+app.use('/users', require('../controllers/users'))
 
 //returns products from api
 app.get('/api/products',(req,res) => {
