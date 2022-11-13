@@ -25,6 +25,9 @@ body {
   margin-right: 20px;
   display: inline;
 }
+#NavBar #NavButtons > b {
+  vertical-align: super;
+}
 #NavBar #NavButtons > button {
   font-weight: bolder;
   background: transparent;
