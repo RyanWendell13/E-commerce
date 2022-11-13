@@ -7,7 +7,7 @@
     "description": "",
     "main": "",
     "scripts": {
-      "start": "npm start --prefix server",
+      "start": "npm start --prefix backend",
       "install-frontend": "cd frontend && npm install --only=dev && npm install && npm run build && cd ..",
       "install-backend": "cd backend && npm install && cd ..",
       "heroku-postbuild": "npm run install-frontend && npm run install-backend"
