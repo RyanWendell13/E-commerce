@@ -2,8 +2,6 @@ import React from "react"
 import { useEffect, useState } from 'react'
 import Card from "../components/Card"
 import NavBar from "../components/NavBar"
-import Login from "../components/Login"
-import SignUp from "../components/SignUp"
 
 function ShopView(){
     const [data, setData] = useState(null)
@@ -29,7 +27,7 @@ function CreateCards(data){
       <div id='ItemsList'>
         {data.map((d) => {
           return(
-            <Card img = {d.images[0]} name = {d.title} price = {d.price} description = {d.description} id = {d.id}  isInCart = {1}/>
+            <Card key = {d.id} img = {d.images[0]} name = {d.title} price = {d.price} description = {d.description} id = {d.id}  isInCart = {1}/>
           )
         })}
       </div>

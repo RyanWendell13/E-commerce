@@ -31,7 +31,7 @@ function CreateCards(data){
       <div id='ItemsList'>
         {data.map((d) => {
           return(
-            <Card img = {d.images[0]} name = {d.title} price = {d.price} description = {d.description} id = {d.id}  isInCart = {0}/>
+            <Card key = {d.id} img = {d.images[0]} name = {d.title} price = {d.price} description = {d.description} id = {d.id}  isInCart = {0}/>
           )
         })}
       </div>
