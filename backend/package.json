@@ -11,7 +11,7 @@
     "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
   "keywords": [],
-  "author": "",
+  "author": "Ryan Wendell",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
