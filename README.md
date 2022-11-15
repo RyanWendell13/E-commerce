@@ -7,10 +7,13 @@ https://mern-e-commerce-site.herokuapp.com/
 
 ## Technology
 ### Frontend
-\   React, Scss
+-React
+-Scss
 
 ### Backend: 
-\   Node JS, Express, MongoDB
+-Node JS
+-Express
+-MongoDB
 
 Data for products comes from https://dummyjson.com/
 
