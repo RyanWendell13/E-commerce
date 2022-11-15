@@ -10,7 +10,7 @@ https://mern-e-commerce-site.herokuapp.com/
 - React
 - Scss
 
-### Backend: 
+### Backend
 - Node JS
 - Express
 - MongoDB
