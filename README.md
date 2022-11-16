@@ -37,25 +37,14 @@ In the root directory run npm run build, and then npm start.
 
 Method | Path | Purpose
 ---|---|---
-
 get | /api/products | Get an array of producst
-
 get | /api/cart | Gets a array of items that are in the cart
-
 post | /api/additem | adds item to cart or if it already exists increase quanitity
-
 delete | /api/removeitem | removes item from cart
-
 get | /api/products/:id | gets info for specific items
-
 get | /api/cart/count/:id | get the count of an item in cart
-
 put | /api/cart/count/:id | changes the quantity of an item in cart
-
 get | /api/cart/count | gets total count of items in cart
-
 post | /user | recives a user name and password and creates a new user
-
 post | /user/authenication | recives a user name and password authenicates user and returns user information
-
 get | /user/profile | checks for current user and returns user information
