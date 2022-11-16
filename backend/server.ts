@@ -10,6 +10,8 @@ const cookieSession = require('cookie-session')
 const defineCurrentUser = require('./middleware/defineCurrentUser')
 require('dotenv').config()
 import { Request, Response } from "express"
+import { DBItemInfo } from "./types/item"
+import { User } from "./types/user"
 
 app.use(cookieSession({
   name: 'session',
@@ -44,14 +46,14 @@ app.get ('/api/cart',(req:RequestWithCurrentUser,res:Response) => {
   if(req.currentUser){
     db.User.findById(req.currentUser._id)
     .populate('items')
-    .then((user: { items: any[] }) => {
+    .then((user: { items: DBItemInfo[] }) => {
       db.Item.find({
         _id: {$in: user.items.map(i => {
           return i._id
         })}
       })
-      .then((items: any[]) => {
-        Promise.all(items.map((i: { id: any }) => {
+      .then((items: DBItemInfo[]) => {
+        Promise.all(items.map((i: DBItemInfo) => {
           return fetch(`https://dummyjson.com/products/${i.id}`)
           .then(response => response.json())
           .then(json => {return json})
@@ -68,9 +70,9 @@ app.post('/api/additem', (req:RequestWithCurrentUser, res:Response)=>{
   if(req.currentUser){
     db.User.findById(req.currentUser.id)
     .populate('items')
-    .then((user: { items: any[]; save: () => Promise<any> }) => {
+    .then((user: {save(): Promise<User>; items: DBItemInfo[]}) => {
       db.Item.findOneAndUpdate({$and:[{
-        _id: {$in: user.items.map((i: { _id: any }) => {
+        _id: {$in: user.items.map((i: DBItemInfo) => {
           return i._id
         })}},
         {
@@ -80,8 +82,8 @@ app.post('/api/additem', (req:RequestWithCurrentUser, res:Response)=>{
       .then((r: null) => {
         if (r == null){
           db.Item.create({id: req.body.id, quantity: 1 })
-          .then((item: { _id: any }) => {
-            user.items.push(item._id)
+          .then((item: DBItemInfo) => {
+            user.items.push(item)
             user.save()
             .then(() => {
               console.log("added")
@@ -102,16 +104,16 @@ app.delete('/api/removeitem', (req:RequestWithCurrentUser, res:Response)=>{
   if(req.currentUser){
     db.User.findById(req.currentUser.id)
     .populate('items')
-    .then((user: { items: any[] }) => {
+    .then((user: { items: DBItemInfo[] }) => {
       db.Item.findOneAndDelete({$and:[{
-        _id: {$in: user.items.map((i: { _id: any }) => {
+        _id: {$in: user.items.map((i:DBItemInfo) => {
           return i._id
         })}},
         {
           id: req.body.id
         }
       ]})
-      .then((i: { _id: any }) => {
+      .then((i: DBItemInfo) => {
         db.User.findByIdAndUpdate(req.currentUser.id,{$pull: {items: i._id}})
         .then(() => {
           res.redirect('/cart')
@@ -135,16 +137,16 @@ app.get('/api/cart/count/:id', (req:RequestWithCurrentUser, res:Response)=>{
   if(req.currentUser){
     db.User.findById(req.currentUser.id)
     .populate('items')
-    .then((user: { items: any[] }) => {
+    .then((user: { items: DBItemInfo[] }) => {
       db.Item.findOne({$and:[{
-        _id: {$in: user.items.map((i: { _id: any }) => {
+        _id: {$in: user.items.map((i: DBItemInfo) => {
           return i._id
         })}},
         {
           id: req.params.id
         }
       ]})
-      .then((item: { quantity: { toString: () => any } } | null) => {
+      .then((item: DBItemInfo | null) => {
         if(item != null){
           res.json(item.quantity.toString())
         }
@@ -164,9 +166,9 @@ app.put('/api/cart/count/:id', (req:RequestWithCurrentUser, res:Response)=>{
   if(req.currentUser){
     db.User.findById(req.currentUser.id)
     .populate('items')
-    .then((user: { items: any[] }) => {
+    .then((user: { items: DBItemInfo[] }) => {
       db.Item.findOneAndUpdate({$and:[{
-        _id: {$in: user.items.map((i: { _id: any }) => {
+        _id: {$in: user.items.map((i: DBItemInfo) => {
           return i._id
         })}},
         {
@@ -182,29 +184,37 @@ app.put('/api/cart/count/:id', (req:RequestWithCurrentUser, res:Response)=>{
 app.get('/api/cart/count', (req:RequestWithCurrentUser, res:Response)=>{
   if (req.currentUser){
     db.User.findById(req.currentUser.id)
-    .then((user: { items: { _id: any }[] }) => {
-     if(user.items.length > 0)
-     {
-      db.Item.find({_id: {$in: user.items.map((i: { _id: any }) => {
-        return i._id
-      })}
-    })
-    .then((items: { length: any; map: (arg0: (i: any) => any) => any[]; quantity: any }) => {
-        if(items.length){
-          res.json(items.map(i => {
-            return i.quantity
-          }).reduce((pv,cv) => pv+cv, 0)) 
-        }
-        else{
+    .then((user: { items: DBItemInfo[] }) => {
+     if(user.items.length > 0){
+      if(user.items.length > 1){
+        db.Item.find({_id: {$in: user.items.map((i: DBItemInfo) => {
+          return i._id
+        })}
+      })
+      .then((items: DBItemInfo[]) => {
+          if(items.length){
+            res.json(items.map(i => {
+              return i.quantity
+            }).reduce((pv,cv) => pv+cv, 0)) 
+          }
+        })
+      }
+      else{
+        db.Item.find({_id: {$in: user.items.map((i: DBItemInfo) => {
+            return i._id
+          })}
+        })
+        .then((items: DBItemInfo) => {
           if(items.quantity){
             res.json(items.quantity)
           }
-        }
-      })
-     }
-     else{
+        })
+      }
+      
+    }
+    else{
       res.json('0')
-     }
+    }
     })
   }
   else{

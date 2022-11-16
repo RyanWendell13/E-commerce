@@ -12,5 +12,5 @@ _v:number
 
 export interface UserContext {
     currentUser: User|null
-    setCurrentUser: any
+    setCurrentUser: React.Dispatch<SetStateAction<User|null>>|null
 }

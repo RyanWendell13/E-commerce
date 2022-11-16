@@ -9,7 +9,7 @@ interface props{
 
 function Login(props: props){
 
-    const {setCurrentUser, currentUser} = useContext(CurrentUser)
+    const {setCurrentUser} = useContext(CurrentUser)
 
     const [credentials, setCredentials] = useState({
         email: '',
@@ -29,7 +29,9 @@ function Login(props: props){
         const data = await response.json()
 
         if(response.status === 200){
-            setCurrentUser(data.user)
+            if(setCurrentUser!=null){
+                setCurrentUser(data.user)
+            }
             window.location.reload()
         }
         else{
