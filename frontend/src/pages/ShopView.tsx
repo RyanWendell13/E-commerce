@@ -22,7 +22,7 @@ function ShopView(){
     )
 }
 
-function CreateCards(data){
+function CreateCards(data: {}){
     return(
       <div id='ItemsList'>
         {data.map((d) => {
