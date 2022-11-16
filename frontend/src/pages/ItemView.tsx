@@ -61,9 +61,9 @@ function RenderPage(data: Item){
 }
 
 function Rating(rating:number){
-    let s = ''
+    let s: string = ''
 
-    for (let i = 0; i < Math.round(rating); i++) {
+    for (let i:number = 0; i < Math.round(rating); i++) {
         s += '★'
     }
 

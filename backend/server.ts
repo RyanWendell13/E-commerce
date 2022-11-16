@@ -42,7 +42,7 @@ app.get('/api/products',(req:Request,res:Response) => {
 //returns array of products compiled from api
 app.get ('/api/cart',(req:RequestWithCurrentUser,res:Response) => {
   if(req.currentUser){
-    db.User.findById(req.currentUser.id)
+    db.User.findById(req.currentUser._id)
     .populate('items')
     .then((user: { items: any[] }) => {
       db.Item.find({

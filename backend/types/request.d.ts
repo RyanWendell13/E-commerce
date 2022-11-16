@@ -1,13 +1,9 @@
 import { Request } from "express";
 import mongoose from "mongoose";
+import { User } from "./user";
 
 export interface RequestWithCurrentUser extends Request {
-    currentUser: {
-        id: string
-        email: String,
-        password: String,
-        items: [mongoose.Types.ObjectId]
-    }
+    currentUser: User
     session: {
         id: string
     }
