@@ -21,7 +21,6 @@ Data for products comes from https://dummyjson.com/
 
 ### How To Run(Locally)
 In the backend folder create a .env add the following.
-
     MONGO_URI = (MongoDB connection string)
     PORT = (Port number to run on)
     SESSION_SECRET = (Type a string of random letters)
