@@ -27,4 +27,6 @@ In the backend folder create a .env add the following.
     SESSION_SECRET = (Type a string of random letters)
     CORS_ORIGIN = (Set to frontend url)
 
+In the frontend package.json modify proxy to be your backend url (ex. "proxy": "http://localhost:3000/",)
+
 run npm i for both the frontend and backend. then run npm start for both.
