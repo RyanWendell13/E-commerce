@@ -68,7 +68,7 @@ app.get ('/api/cart',(req:RequestWithCurrentUser,res:Response) => {
 //add item to cart and if it already is in cart increment count by one
 app.post('/api/additem', (req:RequestWithCurrentUser, res:Response)=>{
   if(req.currentUser){
-    db.User.findById(req.currentUser.id)
+    db.User.findById(req.currentUser._id)
     .populate('items')
     .then((user: {save(): Promise<User>; items: DBItemInfo[]}) => {
       db.Item.findOneAndUpdate({$and:[{
@@ -102,7 +102,7 @@ app.post('/api/additem', (req:RequestWithCurrentUser, res:Response)=>{
 //removes item from cart
 app.delete('/api/removeitem', (req:RequestWithCurrentUser, res:Response)=>{
   if(req.currentUser){
-    db.User.findById(req.currentUser.id)
+    db.User.findById(req.currentUser._id)
     .populate('items')
     .then((user: { items: DBItemInfo[] }) => {
       db.Item.findOneAndDelete({$and:[{
@@ -114,7 +114,7 @@ app.delete('/api/removeitem', (req:RequestWithCurrentUser, res:Response)=>{
         }
       ]})
       .then((i: DBItemInfo) => {
-        db.User.findByIdAndUpdate(req.currentUser.id,{$pull: {items: i._id}})
+        db.User.findByIdAndUpdate(req.currentUser._id,{$pull: {items: i._id}})
         .then(() => {
           res.redirect('/cart')
         })
@@ -135,7 +135,7 @@ app.get('/api/products/:id', (req:Request, res:Response)=>{
 //Return the amount of item in cart
 app.get('/api/cart/count/:id', (req:RequestWithCurrentUser, res:Response)=>{
   if(req.currentUser){
-    db.User.findById(req.currentUser.id)
+    db.User.findById(req.currentUser._id)
     .populate('items')
     .then((user: { items: DBItemInfo[] }) => {
       db.Item.findOne({$and:[{
@@ -164,7 +164,7 @@ app.get('/api/cart/count/:id', (req:RequestWithCurrentUser, res:Response)=>{
 //changes the amount of item in cart
 app.put('/api/cart/count/:id', (req:RequestWithCurrentUser, res:Response)=>{
   if(req.currentUser){
-    db.User.findById(req.currentUser.id)
+    db.User.findById(req.currentUser._id)
     .populate('items')
     .then((user: { items: DBItemInfo[] }) => {
       db.Item.findOneAndUpdate({$and:[{
@@ -183,7 +183,7 @@ app.put('/api/cart/count/:id', (req:RequestWithCurrentUser, res:Response)=>{
 //returns total cart count
 app.get('/api/cart/count', (req:RequestWithCurrentUser, res:Response)=>{
   if (req.currentUser){
-    db.User.findById(req.currentUser.id)
+    db.User.findById(req.currentUser._id)
     .then((user: { items: DBItemInfo[] }) => {
      if(user.items.length > 0){
       if(user.items.length > 1){

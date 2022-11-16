@@ -5,6 +5,6 @@ import { User } from "./user";
 export interface RequestWithCurrentUser extends Request {
     currentUser: User
     session: {
-        id: string
+        _id: string
     }
 }

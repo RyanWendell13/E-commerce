@@ -5,7 +5,7 @@ import { User } from "../types/user"
 
 async function defineCurrentUser(req:RequestWithCurrentUser, res:Response, next: Function) {
     try {
-        let user: User = await db.User.findById(req.session.id)
+        let user: User = await db.User.findById(req.session._id)
         req.currentUser = user
         next()
     } catch {

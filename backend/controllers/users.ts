@@ -23,7 +23,7 @@ router.post('/authentication', async (req:RequestWithCurrentUser, res:Response) 
         })
     }
     else{
-        req.session.id = user._id
+        req.session._id = user._id
         res.json({user})
     }
 
