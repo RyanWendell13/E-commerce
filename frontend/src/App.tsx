@@ -17,7 +17,7 @@ function App():React.ReactElement {
           <Route path='/' element={<ShopView/>}/>
           <Route path='/cart' element={<CartView/>}/>
           <Route path='/products/:id' element={<ItemView/>}/>
-          <Route path='/error404' element={<Error404/>}/>
+          <Route path='*' element={<Error404/>}/>
         </Routes>
       </Router>
     </CurrentUserProvider>
