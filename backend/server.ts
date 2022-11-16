@@ -1,3 +1,4 @@
+import { RequestWithCurrentUser } from "./types/request"
 const express = require('express')
 const path = require('path')
 const cors = require('cors')
@@ -8,6 +9,7 @@ const methodOverride = require('method-override')
 const cookieSession = require('cookie-session')
 const defineCurrentUser = require('./middleware/defineCurrentUser')
 require('dotenv').config()
+import { Request, Response } from "express"
 
 app.use(cookieSession({
   name: 'session',
@@ -31,25 +33,25 @@ app.use(defineCurrentUser)
 app.use('/users', require('./controllers/users'))
 
 //returns products from api
-app.get('/api/products',(req,res) => {
+app.get('/api/products',(req:Request,res:Response) => {
   fetch('https://dummyjson.com/products')
   .then(response => response.json())
   .then(json => res.json(json))
 })
 
 //returns array of products compiled from api
-app.get ('/api/cart',(req,res) => {
+app.get ('/api/cart',(req:RequestWithCurrentUser,res:Response) => {
   if(req.currentUser){
     db.User.findById(req.currentUser.id)
     .populate('items')
-    .then(user => {
+    .then((user: { items: any[] }) => {
       db.Item.find({
         _id: {$in: user.items.map(i => {
           return i._id
         })}
       })
-      .then( items => {
-        Promise.all(items.map(i => {
+      .then((items: any[]) => {
+        Promise.all(items.map((i: { id: any }) => {
           return fetch(`https://dummyjson.com/products/${i.id}`)
           .then(response => response.json())
           .then(json => {return json})
@@ -62,23 +64,23 @@ app.get ('/api/cart',(req,res) => {
 
 
 //add item to cart and if it already is in cart increment count by one
-app.post('/api/additem', (req, res)=>{
+app.post('/api/additem', (req:RequestWithCurrentUser, res:Response)=>{
   if(req.currentUser){
     db.User.findById(req.currentUser.id)
     .populate('items')
-    .then(user => {
+    .then((user: { items: any[]; save: () => Promise<any> }) => {
       db.Item.findOneAndUpdate({$and:[{
-        _id: {$in: user.items.map(i => {
+        _id: {$in: user.items.map((i: { _id: any }) => {
           return i._id
         })}},
         {
           id: req.body.id
         }
       ]},{$inc : {'quantity' : 1}}) 
-      .then(r => {
+      .then((r: null) => {
         if (r == null){
           db.Item.create({id: req.body.id, quantity: 1 })
-          .then(item => {
+          .then((item: { _id: any }) => {
             user.items.push(item._id)
             user.save()
             .then(() => {
@@ -96,20 +98,20 @@ app.post('/api/additem', (req, res)=>{
 })
 
 //removes item from cart
-app.delete('/api/removeitem', (req, res)=>{
+app.delete('/api/removeitem', (req:RequestWithCurrentUser, res:Response)=>{
   if(req.currentUser){
     db.User.findById(req.currentUser.id)
     .populate('items')
-    .then(user => {
+    .then((user: { items: any[] }) => {
       db.Item.findOneAndDelete({$and:[{
-        _id: {$in: user.items.map(i => {
+        _id: {$in: user.items.map((i: { _id: any }) => {
           return i._id
         })}},
         {
           id: req.body.id
         }
       ]})
-      .then(i => {
+      .then((i: { _id: any }) => {
         db.User.findByIdAndUpdate(req.currentUser.id,{$pull: {items: i._id}})
         .then(() => {
           res.redirect('/cart')
@@ -120,7 +122,7 @@ app.delete('/api/removeitem', (req, res)=>{
 })
 
 //gets a specific products data
-app.get('/api/products/:id', (req, res)=>{
+app.get('/api/products/:id', (req:Request, res:Response)=>{
   fetch(`https://dummyjson.com/products/${req.params.id}`)
   .then(response => response.json())
   .then(json => {
@@ -129,20 +131,20 @@ app.get('/api/products/:id', (req, res)=>{
 })
 
 //Return the amount of item in cart
-app.get('/api/cart/count/:id', (req, res)=>{
+app.get('/api/cart/count/:id', (req:RequestWithCurrentUser, res:Response)=>{
   if(req.currentUser){
     db.User.findById(req.currentUser.id)
     .populate('items')
-    .then(user => {
+    .then((user: { items: any[] }) => {
       db.Item.findOne({$and:[{
-        _id: {$in: user.items.map(i => {
+        _id: {$in: user.items.map((i: { _id: any }) => {
           return i._id
         })}},
         {
           id: req.params.id
         }
       ]})
-      .then(item => {
+      .then((item: { quantity: { toString: () => any } } | null) => {
         if(item != null){
           res.json(item.quantity.toString())
         }
@@ -158,13 +160,13 @@ app.get('/api/cart/count/:id', (req, res)=>{
 })
 
 //changes the amount of item in cart
-app.put('/api/cart/count/:id', (req, res)=>{
+app.put('/api/cart/count/:id', (req:RequestWithCurrentUser, res:Response)=>{
   if(req.currentUser){
     db.User.findById(req.currentUser.id)
     .populate('items')
-    .then(user => {
+    .then((user: { items: any[] }) => {
       db.Item.findOneAndUpdate({$and:[{
-        _id: {$in: user.items.map(i => {
+        _id: {$in: user.items.map((i: { _id: any }) => {
           return i._id
         })}},
         {
@@ -177,17 +179,17 @@ app.put('/api/cart/count/:id', (req, res)=>{
 })
 
 //returns total cart count
-app.get('/api/cart/count', (req, res)=>{
+app.get('/api/cart/count', (req:RequestWithCurrentUser, res:Response)=>{
   if (req.currentUser){
     db.User.findById(req.currentUser.id)
-    .then(user => {
+    .then((user: { items: { _id: any }[] }) => {
      if(user.items.length > 0)
      {
-      db.Item.find({_id: {$in: user.items.map(i => {
+      db.Item.find({_id: {$in: user.items.map((i: { _id: any }) => {
         return i._id
       })}
     })
-    .then(items => {
+    .then((items: { length: any; map: (arg0: (i: any) => any) => any[]; quantity: any }) => {
         if(items.length){
           res.json(items.map(i => {
             return i.quantity
@@ -212,7 +214,7 @@ app.get('/api/cart/count', (req, res)=>{
   
 })
 
-app.get('/*', (req, res)=>{
+app.get('/*', (req:Request, res:Response)=>{
   res.sendFile(path.join(__dirname, '../frontend/build/index.html'))
 })
 

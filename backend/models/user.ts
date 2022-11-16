@@ -1,6 +1,6 @@
 // carts[cart{email,password,[items{id, quantity}] }]
 
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
 const userSchema = new mongoose.Schema({
   email: {type: String, required: true},

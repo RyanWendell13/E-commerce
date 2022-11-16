@@ -1,7 +1,8 @@
 const db = require("../models")
+import { Request, Response } from "express"
+import { RequestWithCurrentUser } from "../types/request"
 
-async function defineCurrentUser(req, res, next) {
-
+async function defineCurrentUser(req:RequestWithCurrentUser, res:Response, next: Function) {
     // try {
     //     let user = await db.User.findById(req.session.id)
     //     res.json(user)

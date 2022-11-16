@@ -1,17 +1,20 @@
 const router = require('express').Router()
 const db = require("../models")
 const bcrypt = require("bcrypt")
+import {Request, Response} from "express"
+import { RequestWithCurrentUser } from "../types/request"
 
-router.post('/', async(req, res) =>{
+router.post('/', async(req:Request, res:Response) =>{
     const user = await db.User.create({
         email: req.body.email,
         password: await bcrypt.hash(req.body.password, 10),
         items: []
     })
+    
     res.redirect('/')
 })
 
-router.post('/authentication', async (req, res) => {
+router.post('/authentication', async (req:RequestWithCurrentUser, res:Response) => {
     let user = await db.User.findOne({email: req.body.email})
     if(!user || !await bcrypt.compare(req.body.password, user.password)){
         res.status(404).json({
@@ -25,7 +28,7 @@ router.post('/authentication', async (req, res) => {
 
 })
 
-router.get('/profile', async (req, res) => {
+router.get('/profile', async (req: RequestWithCurrentUser, res:Response) => {
     // try {
     //     let user = await db.User.findById(req.session.id)
     //     res.json(user)
