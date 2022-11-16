@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom"
 import NavBar from "../components/NavBar"
 
 import InCartCount from "../components/InCartCount"
+import { Item } from "../types/Item"
 function ItemView(){
 
     const [data, setData] = useState(null)
@@ -23,7 +24,7 @@ function ItemView(){
     )
 }
 
-function RenderPage(data){
+function RenderPage(data: Item){
     return(
         <div id="ItemDisplay">
             <div id="Picture">
@@ -59,7 +60,7 @@ function RenderPage(data){
     )
 }
 
-function Rating(rating){
+function Rating(rating:number){
     let s = ''
 
     for (let i = 0; i < Math.round(rating); i++) {

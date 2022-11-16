@@ -1,8 +1,12 @@
 import React from "react"
 import {Search,Dash} from 'react-bootstrap-icons'
 
+interface props{
+    id:number
+}
+
 //bar for cart view
-function CartBar(props){
+function CartBar(props:props){
     return(
         <div id="InputBar">
             {/* removes from cart */}

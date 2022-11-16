@@ -1,14 +1,19 @@
-import {React, useState } from "react"
+import React from "react"
+import { useState } from "react"
 import {X} from 'react-bootstrap-icons'
 
-function SignUp(props){
+interface props{
+    close: () => void 
+}
+
+function SignUp(props : props){
 
     const [credentials, setCredentials] = useState({
         email: '',
         password: ''
     })
 
-    async function handleSubmit(e){
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>){
         e.preventDefault()
         const response = await fetch('/users',{
             method: 'POST',
@@ -26,7 +31,7 @@ function SignUp(props){
             <p>Sign Up </p>
             <form onSubmit={handleSubmit}>
                 <label>Email</label>
-                <input required id="email" name="email" type="text" onChange={e => setCredentials({...credentials, email: e.target.value})}/>
+                <input required id="email" name="email" type="email" onChange={e => setCredentials({...credentials, email: e.target.value})}/>
                 <label>Password</label>
                 <input required id="password" name="password" type="password" onChange={e => setCredentials({...credentials, password: e.target.value})}/>
                 <input value="Submit" id="Submit" type="submit"/>

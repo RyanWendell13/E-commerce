@@ -1,7 +1,5 @@
-
-
+import mongoose from 'mongoose'
 require('dotenv').config()
-import mongoose = require('mongoose')
 mongoose.connect(process.env.MONGO_URI as string)
 
 // {

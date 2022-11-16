@@ -1,11 +1,14 @@
-import { createContext, useEffect, useState } from "react";
+import React, { createContext, SetStateAction, useEffect, useState } from "react";
+import { User, UserContext } from "../types/User";
 
+interface ContextProps {
+    children: React.ReactNode
+}
+export const CurrentUser = createContext<UserContext>({currentUser:null, setCurrentUser:null})
 
-export const CurrentUser = createContext()
+function CurrentUserProvider({children}: ContextProps ){
 
-function CurrentUserProvider({ children }){
-
-    const [currentUser, setCurrentUser] = useState(null)
+    const [currentUser, setCurrentUser]:[User|null, React.Dispatch<SetStateAction<User|null>>] = useState<User|null>(null)
 
     useEffect(() => {
         const getLoggedInUser = async () => {

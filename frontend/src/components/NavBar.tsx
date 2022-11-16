@@ -8,7 +8,7 @@ import { CurrentUser } from "../contexts/CurrentUser"
 function NavBar(){
 
     const {currentUser} = useContext(CurrentUser)
-
+    
     const [data, setData] = useState(null)
     const [hideLogin, setHideLogin] = useState(true)
     const [hideSignUp, setHideSignUp] = useState(true)

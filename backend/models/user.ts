@@ -1,5 +1,3 @@
-// carts[cart{email,password,[items{id, quantity}] }]
-
 import mongoose from 'mongoose'
 
 const userSchema = new mongoose.Schema({

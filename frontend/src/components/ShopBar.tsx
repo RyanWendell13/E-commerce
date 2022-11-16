@@ -1,11 +1,14 @@
-import React from "react"
 import {Search,Plus} from 'react-bootstrap-icons'
 
-function ShopBar(props){
+interface props{
+    id: number
+}
+
+function ShopBar(props:props){
     return(
         <div id="InputBar">
             {/* add to cart */}
-            <form action="/api/additem" method="POST" name="id" value={props.id}>
+            <form action="/api/additem" method="POST" name="id">
                 <button name="id" value={props.id}><Plus/></button>
             </form>
             {/* go to product view */}

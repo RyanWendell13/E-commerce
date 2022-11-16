@@ -1,9 +1,15 @@
-import {React, useContext, useState } from "react"
+import React from "react"
+import {useContext, useState } from "react"
 import { CurrentUser } from "../contexts/CurrentUser"
 import {X} from 'react-bootstrap-icons'
 
-function Login(props){
-    const {setCurrentUser} = useContext(CurrentUser)
+interface props{
+    close: () => void 
+}
+
+function Login(props: props){
+
+    const {setCurrentUser, currentUser} = useContext(CurrentUser)
 
     const [credentials, setCredentials] = useState({
         email: '',
@@ -11,7 +17,7 @@ function Login(props){
     })
     const [errorMessage, setErrorMessage] = useState(null)
 
-    async function handleSubmit(e){
+    async function handleSubmit(e: { preventDefault: () => void }){
         e.preventDefault()
         const response = await fetch('/users/authentication/',{
             method: 'POST',
@@ -36,7 +42,7 @@ function Login(props){
             <p>Login</p>
             <form onSubmit={handleSubmit}>
                 <label>Email</label>
-                <input required id="email" name="email" type="text" onChange={e => setCredentials({...credentials, email: e.target.value})}/>
+                <input required id="email" name="email" type="email" onChange={e => setCredentials({...credentials, email: e.target.value})}/>
                 <label>Password</label>
                 <input required id="password" name="password" type="password" onChange={e => setCredentials({...credentials, password: e.target.value})}/>
                 {errorMessage !== null ? <p color="red">{errorMessage}</p>:null}

@@ -3,8 +3,17 @@ import CartBar from "./CartBar"
 import InCartCount from "./InCartCount"
 import ShopBar from "./ShopBar"
 
+interface props{
+    img:string
+    name:string
+    price:number
+    description:string
+    id:number
+    isInCart:boolean
+}
+
 //displays the data for an specific product
-function Card(props){
+function Card(props: props){
     return(
         <div id="Card">
             <div id="Item">
@@ -22,9 +31,9 @@ function Card(props){
 }
 
 //swaps out the bottem bar depending on whether it is in the cart view or shop view
-function RenderBar(props){
+function RenderBar(props: props){
 
-    if(props.isInCart == 0){
+    if(props.isInCart == true){
         return (
             <CartBar id = {props.id}/>
         )

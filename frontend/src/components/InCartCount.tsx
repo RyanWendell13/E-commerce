@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react'
 
-function InCartCount(props){
+interface props{
+    id: number
+}
+
+function InCartCount(props:props){
 
     const [data, setData] = useState(null)
     //gets the count for the specific item it represents
