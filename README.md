@@ -29,4 +29,4 @@ In the backend folder create a .env add the following.
 
 In the frontend package.json modify proxy to be your backend url (ex. "proxy": "http://localhost:3000/",)
 
-run npm i for both the frontend and backend. then run npm start for both.
+In the root directory run npm run build, and then npm start. 
