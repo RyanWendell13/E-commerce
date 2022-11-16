@@ -6,7 +6,7 @@ interface props{
 }
 
 //bar for cart view
-function CartBar(props:props){
+function CartBar(props:props):React.ReactElement{
     return(
         <div id="InputBar">
             {/* removes from cart */}

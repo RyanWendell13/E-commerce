@@ -7,7 +7,7 @@ interface props{
     close: () => void 
 }
 
-function Login(props: props){
+function Login(props: props):React.ReactElement{
 
     const {setCurrentUser} = useContext(CurrentUser)
 

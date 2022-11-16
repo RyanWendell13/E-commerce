@@ -4,7 +4,7 @@ interface props{
     id: number
 }
 
-function ShopBar(props:props){
+function ShopBar(props:props):React.ReactElement{
     return(
         <div id="InputBar">
             {/* add to cart */}

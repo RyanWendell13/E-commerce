@@ -8,7 +8,7 @@ import Error404 from './pages/Error404'
 
 import CurrentUserProvider from './contexts/CurrentUser'
 
-function App() {
+function App():React.ReactElement {
   document.title = 'E-commerce'
   return (
     <CurrentUserProvider>

@@ -6,7 +6,7 @@ import { Item } from "../types/Item"
 
 
 
-function CartView(){
+function CartView():React.ReactElement{
     const [data, setData] = useState(null)
 
     useEffect(() => {
@@ -26,7 +26,7 @@ function CartView(){
 
 
 
-function CreateCards(data: Item[]){
+function CreateCards(data: Item[]):React.ReactElement{
     return(
       
       <div id='ItemsList'>

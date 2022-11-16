@@ -6,7 +6,7 @@ interface props{
     close: () => void 
 }
 
-function SignUp(props : props){
+function SignUp(props : props):React.ReactElement{
 
     const [credentials, setCredentials] = useState({
         email: '',

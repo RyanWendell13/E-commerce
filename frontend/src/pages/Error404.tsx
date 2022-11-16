@@ -1,7 +1,7 @@
 import React from "react"
 import NavBar from "../components/NavBar"
 
-function Error404(){
+function Error404():React.ReactElement{
     return(
         <div id='App'>
             <NavBar/>

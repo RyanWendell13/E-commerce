@@ -4,7 +4,7 @@ interface props{
     id: number
 }
 
-function InCartCount(props:props){
+function InCartCount(props:props):React.ReactElement{
 
     const [data, setData] = useState(null)
     //gets the count for the specific item it represents

@@ -13,7 +13,7 @@ interface props{
 }
 
 //displays the data for an specific product
-function Card(props: props){
+function Card(props: props):React.ReactElement{
     return(
         <div id="Card">
             <div id="Item">
@@ -31,7 +31,7 @@ function Card(props: props){
 }
 
 //swaps out the bottem bar depending on whether it is in the cart view or shop view
-function RenderBar(props: props){
+function RenderBar(props: props):React.ReactElement{
 
     if(props.isInCart == true){
         return (

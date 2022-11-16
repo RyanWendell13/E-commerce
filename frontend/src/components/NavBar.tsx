@@ -5,7 +5,7 @@ import Login from "./Login"
 import SignUp from "./SignUp"
 import { CurrentUser } from "../contexts/CurrentUser"
 
-function NavBar(){
+function NavBar():React.ReactElement{
 
     const {currentUser} = useContext(CurrentUser)
     
@@ -33,7 +33,7 @@ function NavBar(){
     }, []);
 
 
-    function manageLoginActions(){
+    function manageLoginActions():React.ReactElement{
         if(currentUser){
             return(
                 <b>Logged In As {currentUser.email}</b>

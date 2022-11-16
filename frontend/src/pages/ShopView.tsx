@@ -4,7 +4,7 @@ import Card from "../components/Card"
 import NavBar from "../components/NavBar"
 import { Item } from "../types/Item"
 
-function ShopView(){
+function ShopView():React.ReactElement{
     const [data, setData] = useState(null)
 
     useEffect(() => {
@@ -23,7 +23,7 @@ function ShopView(){
     )
 }
 
-function CreateCards(data: Item[]){
+function CreateCards(data: Item[]):React.ReactElement{
     return(
       <div id='ItemsList'>
         {data.map((d) => {

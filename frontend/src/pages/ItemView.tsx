@@ -5,7 +5,7 @@ import NavBar from "../components/NavBar"
 
 import InCartCount from "../components/InCartCount"
 import { Item } from "../types/Item"
-function ItemView(){
+function ItemView():React.ReactElement{
 
     const [data, setData] = useState(null)
     const {id} = useParams()
@@ -24,7 +24,7 @@ function ItemView(){
     )
 }
 
-function RenderPage(data: Item){
+function RenderPage(data: Item):React.ReactElement{
     return(
         <div id="ItemDisplay">
             <div id="Picture">
@@ -60,7 +60,7 @@ function RenderPage(data: Item){
     )
 }
 
-function Rating(rating:number){
+function Rating(rating:number):string{
     let s: string = ''
 
     for (let i:number = 0; i < Math.round(rating); i++) {
