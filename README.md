@@ -31,10 +31,7 @@ In the frontend package.json modify proxy to be your backend url (ex. "proxy": "
 
 In the root directory run npm run build, and then npm start. 
 
-
-
-# API
-
+## API
 Method | Path | Purpose
 ---|---|---
 get | /api/products | Get an array of producst
