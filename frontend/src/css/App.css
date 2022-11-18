@@ -206,4 +206,9 @@ a:hover {
 }
 #ItemDisplay > #Picture > img {
   width: 30vw;
+}
+
+#Error404 {
+  text-align: center;
+  margin-top: 35vh;
 }/*# sourceMappingURL=App.css.map */

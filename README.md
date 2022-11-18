@@ -4,7 +4,6 @@ Simulation of an E-Commerce site. It features the ability to sign-up and login. 
 ## Demo
 https://mern-e-commerce-site.herokuapp.com/
 
-
 ## Technology
 ### Frontend
 - React
@@ -18,7 +17,6 @@ https://mern-e-commerce-site.herokuapp.com/
 Data for products comes from https://dummyjson.com/
 
 ## Technical Information
-
 ### How To Run(Locally)
 In the backend folder create a .env add the following.
 

@@ -5,7 +5,7 @@ function Error404():React.ReactElement{
     return(
         <div id='App'>
             <NavBar/>
-            <h1>Error 404</h1>
+            <h1 id="Error404">Error 404</h1>
         </div>   
     )
 }
