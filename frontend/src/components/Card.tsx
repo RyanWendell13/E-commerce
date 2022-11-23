@@ -17,7 +17,7 @@ function Card(props: props):React.ReactElement{
     return(
         <div id="Card">
             <div id="Item">
-                <img src={props.img} width={100} height={100}/>
+                <img src={props.img} alt={props.name} width={100} height={100}/>
                 <h2>{props.name}</h2>
                 <p>${props.price}</p>
                 <p>{props.description}</p>
