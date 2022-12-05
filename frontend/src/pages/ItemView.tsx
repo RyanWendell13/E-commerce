@@ -14,7 +14,7 @@ function ItemView():React.ReactElement{
         fetch(`/api/products/${id}`)
         .then((res) => res.json())
         .then((data) => setData(data))
-    }, []);
+    });
 
     return(
       <div id='App'>
@@ -28,7 +28,7 @@ function RenderPage(data: Item):React.ReactElement{
     return(
         <div id="ItemDisplay">
             <div id="Picture">
-                <img src={data.images[0]}/> 
+                <img src={data.images[0]} alt={data.title}/> 
             </div>
             <div id="Info">
                 <h1>{data.title}</h1>

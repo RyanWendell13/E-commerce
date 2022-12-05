@@ -15,7 +15,7 @@ function SignUp(props : props):React.ReactElement{
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>){
         e.preventDefault()
-        const response = await fetch('/users',{
+        await fetch('/users',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

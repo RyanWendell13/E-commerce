@@ -12,7 +12,7 @@ function InCartCount(props:props):React.ReactElement{
         fetch(`/api/cart/count/${props.id}`)
         .then((res) => res.json())
         .then((data) => setData(data))
-    }, []);
+    });
 
     return(
         <>
